@@ -51,9 +51,7 @@ option = model_op.confirmValidate()
 
 if option == "v":
     # Validate Model
+    print("\n\nStart Validate Model")
     model = model_op.validateModel(model, validateData)
-else:
-    print("\n\nEnd RNN")
 
-
-
+print("\n\nEnd RNN")
