@@ -1,0 +1,5 @@
+https://keras.io/guides/training_with_built_in_methods/
+https://www.tensorflow.org/tensorboard/scalars_and_keras
+https://www.geeksforgeeks.org/choose-optimal-number-of-epochs-to-train-a-neural-network-in-keras/
+https://keras.io/api/utils/python_utils/#to_categorical-function
+https://www.mdpi.com/2078-2489/11/5/243/htm
