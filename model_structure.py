@@ -37,7 +37,7 @@ def defineModelClassification():
     model.add(tf.keras.layers.Dense(units=240,activation='relu',name="dense_2"))
     model.add(tf.keras.layers.Dense(units=320,activation='relu',name="dense_3"))
     # Adding output layer (normal(0) - anomaly(1))
-    model.add(tf.keras.layers.Dense(units=2,activation='softmax',name="predictions"))
+    model.add(tf.keras.layers.Dense(units=7,activation='softmax',name="predictions"))
     # Adding learning rate and metrics
     model.compile(optimizer=tf.keras.optimizers.Nadam(learning_rate=0.001),
                 loss=tf.keras.losses.mean_squared_error,

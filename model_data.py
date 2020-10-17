@@ -1,8 +1,6 @@
 # Library to read excel data
 import pandas as pd 
 import numpy as np
-# Operations
-import model_operation as model_op
 
 def readData():
 
@@ -24,4 +22,10 @@ def readData():
     print("---  ValidateData 15% lenght = " + str(len(validateData))+"          ---")
     print("---  TestData 15% length     = " + str(len(testData))+"          ---")
     print("-------------------------------------------------")
+
+    # Shuffle data
+    print("---  Shuffle data                             ---")
+    trainingData = trainingData.sample(frac=1)
+    validateData = validateData.sample(frac=1)
+    testData = testData.sample(frac=1)
     return trainingData, validateData, testData

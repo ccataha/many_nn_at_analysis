@@ -32,7 +32,8 @@ def evaluateModel(model, testData):
     # Validate Model
     print("\n\n---  Evaluate Results:                            ---")
     results = model.evaluate(testDataX)
-    model_results.showSummary(testDataY,results)
+    # model_results.showSummary(testDataY,results)
+    print(results)
 
     print("-------------------------------------------------")
     # Validate Model
