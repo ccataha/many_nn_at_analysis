@@ -26,17 +26,17 @@ kddCup = kddCup.sample(frac=1)
 
 # Split data in 60% 20% 20%
 print("Split data in train, validate and test")
-trainingData, validateData, testData = np.split(kddCup.sample(frac=1), [int(.6*len(kddCup)), int(.8*len(kddCup))])
+trainingData, validateData, testData = np.split(kddCup.sample(frac=1), [int(.7*len(kddCup)), int(.85*len(kddCup))])
 
-print("trainingData 60% total datos = " + str(len(trainingData)))
-print("validateData 20% total datos = " + str(len(validateData)))
-print("testData 20% total datos = " + str(len(testData)))
+print("trainingData 70% total datos = " + str(len(trainingData)))
+print("validateData 15% total datos = " + str(len(validateData)))
+print("testData 15% total datos = " + str(len(testData)))
 
-# Suffle Split data
-print("\n\nSuffle Split data")
-trainingData = trainingData.sample(frac=1)
-validateData = validateData.sample(frac=1)
-testData = testData.sample(frac=1)
+# # Suffle Split data
+# print("\n\nSuffle Split data")
+# trainingData = trainingData.sample(frac=1)
+# validateData = validateData.sample(frac=1)
+# testData = testData.sample(frac=1)
 
 
 # Define Model Structure
@@ -45,13 +45,11 @@ model = model_df.defineModel()
 
 # Train Model
 print("\n\nStart Training Model")
-model = model_op.trainModel(3, model, trainingData)
+model = model_op.trainModel(3, model, trainingData, validateData)
 
-option = model_op.confirmValidate()
+# option = model_op.confirmValidate()
 
-if option == "v":
-    # Validate Model
-    print("\n\nStart Validate Model")
-    model = model_op.validateModel(model, validateData)
-
-print("\n\nEnd RNN")
+# if option == "v":
+#     # Validate Model
+#     print("\n\nStart Validate Model")
+#     model = model_op.validateModel(model, validateData)
