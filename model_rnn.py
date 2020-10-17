@@ -3,14 +3,15 @@ import model_structure as model_structure
 import model_operation as model_operation
 
 # Program header
-print("---  Simple RNN Neural Network   ---")
-print("---  Starting Neural Network     ---")
+print("---  Simple RNN Neural Network                ---")
+print("---  Starting Neural Network                  ---")
+print("-------------------------------------------------")
 
 # Get Data
 trainingData, validateData, testData = data_processing.readData()
 # Create Model
 model = model_structure.defineModel()
-# Train Model
+# Train and Validate Model
 model = model_operation.trainModel(3, model, trainingData, validateData)
-# Validate Model
-option = model_operation.validateModel(model, validateData)
+# Evaluate Model
+model_operation.evaluateModel(model, testData)
