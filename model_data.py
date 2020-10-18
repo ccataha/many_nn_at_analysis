@@ -2,17 +2,17 @@
 import pandas as pd 
 import numpy as np
 
-def readData():
+def readData(file):
 
     # Read csv data
     print("\n\n---  Reading csv data                         ---")
     dirpath = "resources/"
-    filename = "kddcup99_csv.csv"
+    filename = file
     kddCup = pd.read_csv(dirpath+filename)
 
     # Shuffle data
     print("---  Shuffle data                             ---")
-    kddCup = kddCup.sample(frac=1)
+    # kddCup = kddCup.sample(frac=1)
 
     # Split data in 70% 15% 15%
     print("---  Split data in train, validate and test   ---")
@@ -24,8 +24,8 @@ def readData():
     print("-------------------------------------------------")
 
     # Shuffle data
-    print("---  Shuffle data                             ---")
-    trainingData = trainingData.sample(frac=1)
-    validateData = validateData.sample(frac=1)
-    testData = testData.sample(frac=1)
+    # print("---  Shuffle data                             ---")
+    # trainingData = trainingData.sample(frac=1)
+    # validateData = validateData.sample(frac=1)
+    # testData = testData.sample(frac=1)
     return trainingData, validateData, testData

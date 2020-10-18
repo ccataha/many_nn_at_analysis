@@ -1,10 +1,32 @@
 # Class to transformate data
-import tools.transformation as tfm
-import tools.normalization as nml
+import tools.data_tool as tfm
 import model_results as model_results
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
+from tensorflow.keras import layers
+
+
+def defineModel():
+    print("\n\n---  Creating RNN Model                       ---")
+    # Define new Model for rnn
+    model = tf.keras.models.Sequential()
+    # Adding model first layer with 41 features (42 - label feature)
+    model.add(tf.keras.layers.SimpleRNN(41))
+    # Adding Hidden Layers
+    # Adding Activation sigmoid on Hidden Layers
+    model.add(tf.keras.layers.Dense(units=80,activation='sigmoid',name="dense_1"))
+    model.add(tf.keras.layers.Dense(units=160,activation='sigmoid',name="dense_2"))
+    model.add(tf.keras.layers.Dense(units=240,activation='sigmoid',name="dense_3"))
+    # Adding output layer (normal(0) - anomaly(1))
+    model.add(tf.keras.layers.Dense(units=2,activation='softmax',name="predictions"))
+    # Adding learning rate and metrics
+    model.compile(optimizer=tf.keras.optimizers.Nadam(learning_rate=0.001),
+                loss=tf.keras.losses.mean_squared_error,
+                metrics=['accuracy'])
+
+    print("-------------------------------------------------")
+    return model
 
 def trainModel(epochs,  model, trainingData, validateData):
     # Training Model
@@ -48,8 +70,7 @@ def evaluateModel(model, testData):
 def transformData(data):
     # Transform text to number
     print("---  Transform text to number                 ---")
-    data = tfm.transformData(data)
-    data["label"]
+    data = tfm.transformDataLabel(data)
     # Split and remove columns
     print("---  Remove unused columns                    ---")
     kddCupY = data["label"]
@@ -61,7 +82,7 @@ def transformData(data):
     kddCupX = kddCupX.to_numpy()
     # Normalize data
     print("---  Normalize Colum Data                     ---")
-    normalizeDataX = nml.normalizeColumn(kddCupX)
+    normalizeDataX = tfm.normalizeColumn(kddCupX)
     # Reshape
     print("---  Reshaping Data                           ---")
     normalizeDataX = normalizeDataX.reshape((normalizeDataX.shape[0],normalizeDataX.shape[1],-1))
