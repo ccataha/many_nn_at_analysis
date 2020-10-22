@@ -1,6 +1,7 @@
 # Class to transformate data
 import tools.data_tool as tfm
 import model_results as model_results
+import model_save as model_save
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -28,25 +29,6 @@ def defineModel():
     print("-------------------------------------------------")
     return model
 
-def trainModel(epochs,  model, trainingData, validateData):
-    # Training Model
-    print("\n\n---  Training model                           ---")
-    print("---  Transform and Normalize Training Data    ---")
-    print("---  Training                                 ---")
-    TrainingDataX, TrainingDataY = transformData(trainingData)
-    validateDataX, validateDataY = transformData(validateData)
-    model.fit(TrainingDataX,TrainingDataY,epochs=epochs,batch_size=25,shuffle=True,
-    validation_data=(validateDataX,validateDataY))
-    
-    print("\n\n---  Training Results:                            ---")
-    results = model.predict(TrainingDataX)
-    model_results.showSummaryClassification(TrainingDataY,results)
-
-    print("\n\n---  Validate Results:                            ---")
-    results = model.predict(validateDataX)
-    model_results.showSummaryClassification(validateDataY,results)
-    return model
-
 def transformData(data):
     # Transform text to number
     print("---  Transform text to number                 ---")
@@ -57,7 +39,6 @@ def transformData(data):
     kddCupY = kddCupY.to_numpy()   
     kddCupY = keras.utils.to_categorical(kddCupY,7)
     kddCupX = data[["protocol_type","service","flag","src_bytes","dst_bytes","land","wrong_fragment","lroot_shell","count","diff_srv_rate","dst_host_same_src_port_rate"]]
-    print(data["protocol_type"])
     kddCupX = kddCupX.to_numpy()
     # Normalize data
     print("---  Normalize Colum Data                     ---")
@@ -66,3 +47,44 @@ def transformData(data):
     print("---  Reshaping Data                           ---")
     normalizeDataX = normalizeDataX.reshape((normalizeDataX.shape[0],normalizeDataX.shape[1],-1))
     return normalizeDataX, kddCupY
+
+
+def trainModel(epochs,  model, trainingData, validateData):
+    # Training Model
+    print("\n\n---  Training model                           ---")
+    print("---  Transform and Normalize Training Data    ---")
+    print("---  Training                                 ---")
+    TrainingDataX, TrainingDataY = transformData(trainingData)
+    validateDataX, validateDataY = transformData(validateData)
+    model.fit(TrainingDataX,TrainingDataY,epochs=epochs,batch_size=25,shuffle=True,
+    validation_data=(validateDataX,validateDataY))
+    
+    model_save.saveModel(model,'classification_model')
+    print("\n\n---  Training Results:                            ---")
+    results = model.predict(TrainingDataX)
+    model_results.showSummaryClassification(TrainingDataY,results)
+
+    print("\n\n---  Validate Results:                            ---")
+    results = model.predict(validateDataX)
+    model_results.showSummaryClassification(validateDataY,results)
+    return model
+
+def evaluateModel(model, testData):
+    print("\n\n---  Evaluate model                           ---")
+    print("---  Transform and Normalize Evaluate Data       ---")
+    testDataX, testDataY = transformData(testData)
+    # Validate Model
+    print("\n\n---  Evaluate Results:                            ---")
+    results = model.evaluate(testDataX,testDataY)
+    # model_results.showSummaryClassifications(testDataY,results)
+    print(results)
+
+    print("-------------------------------------------------")
+    # # Validate Model
+    # print("\n\n---  Predict                                    ---")
+    # results = model.predict(testDataX[:10])
+    # print("---  Results:                               ---")
+    # model_results.showSummaryClassification(testDataY,results)
+
+    print("-------------------------------------------------")
+    return model
