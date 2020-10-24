@@ -24,3 +24,6 @@ https://www.mdpi.com/2078-2489/11/5/243/htm
     # https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
 
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_numpy.html
+
+# activation
+https://keras.io/api/layers/activations/

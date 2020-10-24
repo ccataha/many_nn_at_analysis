@@ -10,7 +10,9 @@ def transformDataLabel(kddCup):
     # print(kddCup["flag"])
     kddCup["service"] = transformColumn(kddCup["service"],serviceLabel(),19)          
     transformLabel = {'normal': 0}
-    kddCup["label"] = transformColumn(kddCup["label"],transformLabel,1)
+    if 'label' in kddCup.columns:
+        kddCup["label"] = transformColumn(kddCup["label"],transformLabel,1)
+    
     # print(kddCup["label"])
     return kddCup
 
@@ -22,7 +24,8 @@ def transformDataLabelClassification(kddCup):
     kddCup["flag"] = transformColumn(kddCup["flag"],flagsLabel(),1)
     # print(kddCup["flag"])
     kddCup["service"] = transformColumn(kddCup["service"],serviceLabel(),19) 
-    kddCup["label"] = transformColumn(kddCup["label"],transfromLabel(),3)
+    if 'label' in kddCup.columns:
+        kddCup["label"] = transformColumn(kddCup["label"],transfromLabel(),3)
     # print(kddCup["label"])
     return kddCup
 

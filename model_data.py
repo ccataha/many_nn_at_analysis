@@ -12,7 +12,7 @@ def readData(file):
 
     # Shuffle data
     print("---  Shuffle data                             ---")
-    # kddCup = kddCup.sample(frac=1)
+    kddCup = kddCup.sample(frac=1)
 
     # Split data in 70% 15% 15%
     print("---  Split data in train, validate and test   ---")

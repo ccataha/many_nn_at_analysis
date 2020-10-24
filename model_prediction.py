@@ -16,13 +16,15 @@ def defineModel():
     model.add(tf.keras.layers.SimpleRNN(41))
     # Adding Hidden Layers
     # Adding Activation sigmoid on Hidden Layers
-    model.add(tf.keras.layers.Dense(units=80,activation='sigmoid',name="dense_1"))
-    model.add(tf.keras.layers.Dense(units=160,activation='sigmoid',name="dense_2"))
-    model.add(tf.keras.layers.Dense(units=240,activation='sigmoid',name="dense_3"))
+    model.add(tf.keras.layers.Dense(units=82,activation='sigmoid',name="dense_1"))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Dense(units=164,activation='sigmoid',name="dense_2"))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Dense(units=248,activation='sigmoid',name="dense_3"))
     # Adding output layer (normal(0) - anomaly(1))
-    model.add(tf.keras.layers.Dense(units=2,activation='softmax',name="predictions"))
+    model.add(tf.keras.layers.Dense(units=2,activation=tf.nn.softmax,name="predictions"))
     # Adding learning rate and metrics
-    model.compile(optimizer=tf.keras.optimizers.Nadam(learning_rate=0.001),
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
                 loss=tf.keras.losses.mean_squared_error,
                 metrics=['accuracy'])
 
@@ -59,16 +61,38 @@ def trainModel(epochs,  model, trainingData, validateData):
     validateDataX, validateDataY = transformData(validateData)
     model.fit(TrainingDataX,TrainingDataY,epochs=epochs,batch_size=25,shuffle=True,
     validation_data=(validateDataX,validateDataY))
-    
-    model_save.saveModel(model,'prediction_model')
-    print("\n\n---  Training Results:                            ---")
-    results = model.predict(TrainingDataX)
-    model_results.showSummary(TrainingDataY,results)
+    model_save.saveModel(model,'prediction_model')    
+    predictModel(model, TrainingDataX, TrainingDataY)
+    validateModel(model,validateDataX, validateDataY)
+    return model
 
+# PREDICT, VALIDATE, EVALUATE
+def predictModel(model, TrainingDataX, TrainingDataY):
+    print("\n\n---  Predict Results:                            ---")
+    results = model.predict(TrainingDataX)
+    print(results)
+    print("-------------------------------------------------")
+    return results
+
+def validateModel(model, validateDataX, validateDataY):
     print("\n\n---  Validate Results:                            ---")
     results = model.predict(validateDataX)
     model_results.showSummary(validateDataY,results)
-    return model
+    return results
+
+def predictFullModel(model, data):
+    print("\n\n---  Predict Results Predition:                   ---")
+    data = tfm.transformDataLabel(data)
+    kddCupX = data
+    if 'label' in kddCupX.columns:
+        kddCupX.pop("label")
+    
+    kddCupX = kddCupX.to_numpy()
+    normalizeDataX = tfm.normalizeColumn(kddCupX)
+    normalizeDataX = normalizeDataX.reshape((normalizeDataX.shape[0],normalizeDataX.shape[1],-1))
+    results = model.predict(normalizeDataX)   
+    predictedColumn = np.argmax(results, axis=1)
+    return predictedColumn
 
 def evaluateModel(model, testData):
     print("\n\n---  Evaluate model                           ---")
@@ -76,16 +100,7 @@ def evaluateModel(model, testData):
     testDataX, testDataY = transformData(testData)
     # Validate Model
     print("\n\n---  Evaluate Results:                            ---")
-    results = model.evaluate(testDataX)
-    # model_results.showSummary(testDataY,results)
+    results = model.evaluate(testDataX,testDataY)
     print(results)
+    return results
 
-    print("-------------------------------------------------")
-    # Validate Model
-    print("\n\n---  Predict                                    ---")
-    results = model.predict(testDataX[:10])
-    print("---  Results:                               ---")
-    model_results.showSummary(testDataY,results)
-
-    print("-------------------------------------------------")
-    return model

@@ -12,16 +12,15 @@ def saveModel(model, fileName):
 
     print("\n\n---  Saving Model:                            ---")
 
-    pathFile = 'resources/' + fileName + '.h5'
+    pathFile = 'resources/models/' + fileName + '.h5'
     if path.exists(pathFile):
         os.remove(pathFile)
 
     model.save(pathFile)
 
-
 def loadModel(fileName):
-    print("\n\n---  Saving Model:                            ---")
-    pathFile = 'resources/' + fileName + '.h5'
+    print("\n\n---  Loading Model "+ fileName +" :                  ---")
+    pathFile = 'resources/models/' + fileName + '.h5'
     model = None
     if path.exists(pathFile):
         model = keras.models.load_model(pathFile)
