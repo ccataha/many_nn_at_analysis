@@ -1,7 +1,0 @@
-# Preguntas
-
-1. Porque al definir las capas LSTM, SingleRNN o GRU es necesario hacer un reshape de la data a 3 dimensiones?
-2. Si en dado caso no establecemos como primera capa una LSTM, SingleRNN o GRU esta tomando como capa inicial una DNN?
-3. Por que es nesario utilizar  keras.utils.to_categorical(kddCupY,x) con x como parametro de los output esperados
-4. Existira alguna manera de poder realizar el Attibute analizer con keras con el fin de analizar los mejores features y no utilizar weka
-5. Podria explicarme un poco mas la capa de batch normalization y que tan recomndable es usarla entre las capas, y si esto provocaria un sobreajuste
