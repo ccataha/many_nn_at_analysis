@@ -1,12 +1,12 @@
 # Class to transformate data
-import tools.data_tool as tfm
-import model_results as model_results
-import model_save as model_save
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 from tensorflow.keras import layers
-import time
+
+import tools.data_tool as tfm
+import src.results.model_result as model_results
+import src.models.model_save as model_save
 
 
 def defineModel():
@@ -104,8 +104,7 @@ def evaluateModel(model, testData):
     return results
 
 def showResultFullModel(data):
-    timestr = time.strftime("%Y%m%d-%H%M")
-    print("---  Find all the result in the file: results/fullModel"+timestr+".csv      ---")
+    print("---  Find all the result in the file: results/modelResult.csv      ---")
     array = transfromResult()
     rows = list(set(data["group_classification"].tolist()))
     for row in rows:

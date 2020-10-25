@@ -1,20 +1,20 @@
-import model_data as data_processing
-import model_prediction as model_prediction
-import model_classification as model_classification
-import model_save as model_save
-
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 from tensorflow.keras import layers
 import pandas as pd 
 
+import src.data.model_data as data_processing
+import src.models.model_prediction as model_prediction
+import src.models.model_classification as model_classification
+import src.results.model_save as model_save
+
 def askOperation():
 
     print("\n\nWhat kind of NN you want to implement")
-    print("\n\n--> RNN - Prediction [1]")
-    print("--> LSTM - Classification [2]")
-    print("--> Prediction with Classification [3]")
+    print("\n\n--> RNN - Train Prediction [1]")
+    print("--> LSTM - Train Classification [2]")
+    print("--> Predict, Validate RNN and LSTM Model[3]")
     confirm = input("\n\nSelect option: ")
     if confirm != '1' and confirm != '2' and confirm != '3':
         print("\n\nInvalid Option. Please Enter a Valid Option.")
@@ -104,6 +104,7 @@ def fullModel():
     predictColum = model_prediction.predictFullModel(model_Pload,predictionData)
     dataFile['predicted'] = predictColum
     dataFile = dataFile[dataFile.predicted != '0'] 
+    dataFile = dataFile[dataFile.label != 'normal'] 
     dataFile.pop('predicted')
     resultColum = model_classification.predictFullModel(model_Cload,dataFile)
     return resultColum

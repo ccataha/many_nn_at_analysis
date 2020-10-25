@@ -72,7 +72,6 @@ def transfromLabel():
     # SMURF-5   280790
     # NEPTUNE-6  107201
     return {
-    'normal': 0, 
     'back': 1, 'land': 1,'pod': 1,'teardrop': 1,
     'buffer_overflow': 2, 'loadmodule': 2, 'perl': 2,'rootkit': 2,
     'ftp_write': 3, 'guess_passwd': 3, 'imap': 3, 'multihop': 3, 'phf': 3,'spy': 3, 'warezclient': 3, 'warezmaster': 3,

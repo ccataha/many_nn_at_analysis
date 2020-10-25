@@ -1,11 +1,13 @@
 # Class to transformate data
-import tools.data_tool as tfm
-import model_results as model_results
-import model_save as model_save
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 from tensorflow.keras import layers
+
+import tools.data_tool as tfm
+import src.results.model_result as model_results
+import src.results.model_save as model_save
+
 
 
 def defineModel():
