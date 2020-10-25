@@ -1,0 +1,29 @@
+# Creating a training model
+https://keras.io/guides/training_with_built_in_methods/
+# Defining Lossing metrics
+https://www.tensorflow.org/tensorboard/scalars_and_keras
+# Search optimal epochs
+https://www.geeksforgeeks.org/choose-optimal-number-of-epochs-to-train-a-neural-network-in-keras/
+
+https://keras.io/api/utils/python_utils/#to_categorical-function
+https://www.mdpi.com/2078-2489/11/5/243/htm
+
+
+# activation
+    # softmax enfocada en binarios 0,1 
+    # relu
+    # tangente
+
+
+# batch normalization, una nueva capa entre las densas
+    # https://keras.io/api/layers/normalization_layers/batch_normalization/
+
+
+# exploracion de datos para ver lo de las columnas segun el plan de trabajo
+    # PCA 
+    # https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_numpy.html
+
+# activation
+https://keras.io/api/layers/activations/
