@@ -63,6 +63,50 @@ On this project we use a common dataset [kddcup99](http://kdd.ics.uci.edu/databa
 python model_rnn.py
 ```
 
+## Project Organization
+------------
+    ├── README.md          <- Readme file to introduces and explains a project.
+    │
+    ├── tools
+    │   ├── data_tool.py   <- Functions to transform data label to numbers.
+    │                      <- Functions to normalize transformed data.
+    │
+    ├── results            <- A output folder for the prediction and classification model.
+    │   ├── modelResult.csv                <- Model result output.
+    │
+    ├── resources          <- Datasets for train and test our model.
+    │   ├── kddcup99_csv_balance.csv       <- Data set used for train classification model.
+    │   ├── kddcup99_csv.csv               <- Data set used for train prediction model.
+    │   ├── test_data.csv                  <- Data set used for test models.
+    │
+    ├── models             <- Trained models, prediction and classification.
+    │   ├── classification_model.h5        <- Classification model.
+    │   ├── prediction_model.h5            <- Prediction model.
+    │
+    ├── references.txt     <- Links Reference.
+    │
+    ├── src                <- Source code.
+    │   │
+    │   ├── data           <- Scripts to read and generate data
+    │   │   └── model_data.py
+    │   │
+    │   ├── features       <- Scripts to turn raw data into features for modeling
+    │   │   └── build_features.py
+    │   │
+    │   ├── models         <- Scripts to train models and used for predictions
+    │   │   ├── model_classification.py
+    │   │   └── model_prediction.py
+    │   │
+    │   └── results        <- Scripts to create a display matrix results and save/load models.
+    │   │   └── model_results.py
+    │   │
+    │   ├── model_rnn.py   <- Scripts to run project and choose between RNN - Prediction, LSTM - Classification or both models.
+    │
+    └── .gitignore         <- gitignore file with folders and files not need it on the project.
+
+
+--------
+
 ## Contributing
 
 Please feel free to contribute or comment on anything about coding style or algorithm suggestions on this repository.
