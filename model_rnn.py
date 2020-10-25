@@ -7,7 +7,7 @@ import pandas as pd
 import src.data.model_data as data_processing
 import src.models.model_prediction as model_prediction
 import src.models.model_classification as model_classification
-import src.results.model_save as model_save
+import src.result.model_save as model_save
 
 def askOperation():
 
@@ -74,6 +74,10 @@ def classificationModel():
 def classificationTrainOption():
     # Get Data
     trainingData, validateData, testData = data_processing.readData("kddcup99_csv_balance.csv")
+
+    trainingData = trainingData[trainingData.label != 'normal'] 
+    validateData = validateData[validateData.label != 'normal'] 
+    testData = testData[testData.label != 'normal'] 
     # Create Model Classification
     model = model_classification.defineModel()
     # Train and Validate Model
@@ -104,7 +108,6 @@ def fullModel():
     predictColum = model_prediction.predictFullModel(model_Pload,predictionData)
     dataFile['predicted'] = predictColum
     dataFile = dataFile[dataFile.predicted != '0'] 
-    dataFile = dataFile[dataFile.label != 'normal'] 
     dataFile.pop('predicted')
     resultColum = model_classification.predictFullModel(model_Cload,dataFile)
     return resultColum

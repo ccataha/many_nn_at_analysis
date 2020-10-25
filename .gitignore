@@ -5,8 +5,6 @@ __pycache__/
 
 .vscode/
 
-results/
-
 .DS_Store
 
 tools/__pycache__

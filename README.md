@@ -1,5 +1,6 @@
 # RNN-IDS-Classifier
 
+
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
@@ -29,6 +30,7 @@ To get a local copy up and running follow these simple steps:
 
 
 #### Environment
+
 - Python 3.7
 - Conda
 
@@ -41,7 +43,7 @@ To get a local copy up and running follow these simple steps:
 - sklearn
 - os
 - pandas
-- time
+
 
 ## Project Organization
 ------------
@@ -51,7 +53,7 @@ To get a local copy up and running follow these simple steps:
     │   ├── data_tool.py   <- Functions to transform data label to numbers.
     │                      <- Functions to normalize transformed data.
     │
-    ├── results            <- A output folder for the prediction and classification model.
+    ├── result            <- A output folder for the prediction and classification model.
     │   ├── modelResult.csv                <- Model result output.
     │
     ├── resources          <- Datasets for train and test our model.
@@ -77,7 +79,7 @@ To get a local copy up and running follow these simple steps:
     │   │   ├── model_classification.py
     │   │   └── model_prediction.py
     │   │
-    │   └── results        <- Scripts to create a display matrix results and save/load models.
+    │   └── result        <- Scripts to create a display matrix results and save/load models.
     │   │   └── model_results.py
     │   │
     │   ├── model_rnn.py   <- Scripts to run project and choose between RNN - Prediction, LSTM - Classification or both models.
@@ -88,13 +90,17 @@ To get a local copy up and running follow these simple steps:
 --------
 
 
-
 ### Installation
 
 Clone this repository in your local machine with the following command:
 
 ```bash
 $ git clone https://github.com/locano/rnn-ids-classifier
+$ conda create -n rnn-ids python=3.7
+$ conda activate rnn-ids
+$ pip install tensorflow
+$ pip install pandas
+$ pip install sklearn
 ```
 
 
@@ -134,6 +140,7 @@ In this option, the data will split into three blocks, training, validation, and
 For this model, we select all the features (41).
 
 ***Model definition***
+
 Then the model is defined as a Sequential with the first layer as a SimpleRNN with forty-one input features. 
 After a few tests, we define our model with five Hidden Layer.
 - Three Dense Layers (82, 164, 248 units)
@@ -143,6 +150,7 @@ And selected sigmoid as activation and, we use Adam as an optimizer.
 
 Finally, we train our data with five epochs and save the predicted model *prediction_model.h5*.
  
+
 **LSTM - Classification** 
 ```
 $ Do you want to Train[1], Exit[2]?
@@ -165,6 +173,7 @@ For this model, we select eleven features determined with Weka.
 - dst_host_same_src_port_rate
 
 ***Model definition***
+
 Then the model is defined as a Sequential with the first layer as an LSTM with eleven input features. 
 
 After a few tests, we define our model with five Hidden Layer.
@@ -173,6 +182,7 @@ Then defined or output Layer with seven units with softmax activation.
 And selected softsign as activation and, we use Adam as an optimizer.
 
 Finally, we train our data with three epochs and save the predicted model *classification_model.h5*.
+
 
 **Predict, Validate RNN and LSTM Model**    
 ```
@@ -187,7 +197,6 @@ Then with the *prediction_model* loaded, we predict our PredictedColum this colu
 Then we use the PredictedColumn to remove all the attacks defined as 'normal' and start the prediction with our *classification_model* loaded.
 
 Finally, the predicted result gets saved in our 'results' folder with the name modelResult.csv
-
 
 
 ## Contributing

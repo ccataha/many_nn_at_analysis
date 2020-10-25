@@ -5,8 +5,8 @@ import numpy as np
 from tensorflow.keras import layers
 
 import tools.data_tool as tfm
-import src.results.model_result as model_results
-import src.models.model_save as model_save
+import src.result.model_results as model_results
+import src.result.model_save as model_save
 
 
 def defineModel():
@@ -23,7 +23,7 @@ def defineModel():
     model.add(tf.keras.layers.Dense(units=176,activation=tf.nn.softsign,name="dense_4"))
     model.add(tf.keras.layers.Dense(units=264,activation=tf.nn.softsign,name="dense_5"))
     # Adding output layer (normal(0) - anomaly(1))
-    model.add(tf.keras.layers.Dense(units=7,activation=tf.nn.softsign.softmax,name="classification"))
+    model.add(tf.keras.layers.Dense(units=7,activation=tf.nn.softmax,name="classification"))
     # Adding learning rate and metrics
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
                 loss=tf.keras.losses.mean_squared_error,
@@ -56,6 +56,7 @@ def trainModel(epochs,  model, trainingData, validateData):
     print("\n\n---  Training model                           ---")
     print("---  Transform and Normalize Training Data    ---")
     print("---  Training                                 ---")
+
     TrainingDataX, TrainingDataY = transformData(trainingData)
     validateDataX, validateDataY = transformData(validateData)
     model.fit(TrainingDataX,TrainingDataY,epochs=epochs,batch_size=25,shuffle=True,
@@ -104,7 +105,7 @@ def evaluateModel(model, testData):
     return results
 
 def showResultFullModel(data):
-    print("---  Find all the result in the file: results/modelResult.csv      ---")
+    print("---  Find all the result in the file: result/modelResult.csv      ---")
     array = transfromResult()
     rows = list(set(data["group_classification"].tolist()))
     for row in rows:
@@ -114,7 +115,7 @@ def showResultFullModel(data):
             data["group_classification"] = data["group_classification"].replace([row],'normal')
 
     # print(kddCup["label"])
-    data.to_csv('results/fullModel.csv')
+    data.to_csv('result/fullModel.csv')
 
 def transfromResult():
     return {

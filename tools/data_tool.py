@@ -64,7 +64,6 @@ def serviceLabel():
                'X11': 64, 'Z39_50': 65}
 
 def transfromLabel():
-    # NORMAL  97277
     # DOS-1   866
     # U2R-2   519
     # R2L-3    140

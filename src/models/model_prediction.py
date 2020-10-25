@@ -5,8 +5,8 @@ import numpy as np
 from tensorflow.keras import layers
 
 import tools.data_tool as tfm
-import src.results.model_result as model_results
-import src.results.model_save as model_save
+import src.result.model_results as model_results
+import src.result.model_save as model_save
 
 
 
